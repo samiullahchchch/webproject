@@ -14,23 +14,25 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
+// CORS Configuration
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: "http://localhost:5173", // Frontend URL
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Allow credentials if necessary
   })
 );
 
 app.use(express.json());
 
-//database connection
+// Database connection
 mongoose
   .connect(MONGO_URI)
-  .then(() => console.log("mongodb is connected"))
+  .then(() => console.log("MongoDB is connected"))
   .catch((e) => console.log(e));
 
-//routes configuration
+// Routes configuration
 app.use("/auth", authRoutes);
 app.use("/media", mediaRoutes);
 app.use("/instructor/course", instructorCourseRoutes);
@@ -39,6 +41,7 @@ app.use("/student/order", studentViewOrderRoutes);
 app.use("/student/courses-bought", studentCoursesRoutes);
 app.use("/student/course-progress", studentCourseProgressRoutes);
 
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.log(err.stack);
   res.status(500).json({
@@ -47,6 +50,7 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is now running on port ${PORT}`);
 });

@@ -18,7 +18,11 @@ function App() {
   const { auth } = useContext(AuthContext);
 
   return (
+
+
+    
     <Routes>
+    // =================================== login signup page ===================================
       <Route
         path="/auth"
         element={
@@ -29,6 +33,7 @@ function App() {
           />
         }
       />
+      // =================================== admin dashborad page ===================================
       <Route
         path="/instructor"
         element={
@@ -39,6 +44,7 @@ function App() {
           />
         }
       />
+      // =================================== add sub part ===================================
       <Route
         path="/instructor/create-new-course"
         element={
@@ -49,6 +55,7 @@ function App() {
           />
         }
       />
+    // =================================== add sub part ===================================
       <Route
         path="/instructor/edit-course/:courseId"
         element={
@@ -59,6 +66,7 @@ function App() {
           />
         }
       />
+          // =================================== Home page ===================================
       <Route
         path="/"
         element={
